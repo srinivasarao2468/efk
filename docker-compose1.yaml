@@ -17,7 +17,7 @@ services:
     environment:
       - FLUENTD_CONF=fluent.conf
     volumes:
-      - .fluent/conf/fluent.conf:/fluentd/etc/fluent.conf
+      - ./fluentd/conf/fluent.conf:/fluentd/etc/fluent.conf
     depends_on:
       - elasticsearch
 
