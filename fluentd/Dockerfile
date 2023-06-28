@@ -1,13 +1,6 @@
-FROM fluent/fluentd:v1.14.2-debian-1.0
-
+FROM fluent/fluentd:v1.12.0-debian-1.0
 USER root
-WORKDIR /home/fluent
-
-# Install Fluentd plugins
-RUN gem install fluent-plugin-elasticsearch -v 5.0.3 \
-    && gem install fluent-plugin-json 
-
-# Copy Fluentd configuration file
-COPY conf/fluent.conf /fluentd/etc/fluent.conf
-
-CMD ["fluentd", "-c", "/fluentd/etc/fluent.conf"]
+RUN gem uninstall -I elasticsearch && gem install elasticsearch -v 7.13.1
+RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-document", "--version", "5.0.3"]
+COPY ./conf/fluent.conf /fluentd/etc/fluent.conf
+USER fluent
